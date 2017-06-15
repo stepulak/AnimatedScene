@@ -13,5 +13,180 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{06f236ad-d40a-4e8a-bee1-50acead2eb21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{a93b1fa0-6566-4c28-8704-fc07c1f2ade3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RubikCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sticker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mirror.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MeshObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialShaderUniforms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixShaderUniforms.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceMaterial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RubikCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sticker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mirror.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VertexShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="FragmentShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="Data\Bin.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Box.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Bulb.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Clock.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\ClockHand.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Cube.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Door.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Chair.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Lamp.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Notebook.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\NotebookDisplay.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\ShelvesWithMiniTable.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Sphere.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Table.obj">
+      <Filter>Data</Filter>
+    </Object>
+    <Object Include="Data\Wall.obj">
+      <Filter>Data</Filter>
+    </Object>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Data\Bin.png">
+      <Filter>Data</Filter>
+    </Image>
+    <Image Include="Data\Birchwood.png">
+      <Filter>Data</Filter>
+    </Image>
+    <Image Include="Data\Box.png">
+      <Filter>Data</Filter>
+    </Image>
+    <Image Include="Data\Doorwood.png">
+      <Filter>Data</Filter>
+    </Image>
+    <Image Include="Data\Metal.png">
+      <Filter>Data</Filter>
+    </Image>
+    <Image Include="Data\NotebookDisplayContent.png">
+      <Filter>Data</Filter>
+    </Image>
+    <Image Include="Data\Wall.png">
+      <Filter>Data</Filter>
+    </Image>
   </ItemGroup>
 </Project>

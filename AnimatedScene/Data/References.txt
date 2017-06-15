@@ -1,0 +1,35 @@
+FI MUNI:
+
+	Bin.obj
+	Box.obj
+	Table.obj
+	Bulb.obj
+	Clock.obj
+	ClockHand.obj
+	Lamp.obj
+	Notebook.obj
+	NotebookDisplay.obj
+
+PUBLIC DOMAIN:
+
+	ShelvesWithMiniTable.obj
+	Cube.obj
+
+Chair.obj: https://opengameart.org/content/low-poly-chair-0
+
+
+Door.obj: http://www.scopia.es
+
+Bin.png: https://lh5.googleusercontent.com/-J4a1fx4tsrk/TYIVuAwiBxI/AAAAAAAAAUQ/mt829y8KWXE/s1600/Silver+Metal+Texture+Used+For+Inside+of+Wheel.png
+
+Metal.png: https://cz.pinterest.com/pin/568720259166802788/
+
+Birchwood.png: https://openclipart.org/detail/240278/birch-wood-texture
+
+Doorwood.png: http://graphicdesignjunction.com/wp-content/uploads/2013/03/wood+pattern+texture+27.jpg
+
+Box.png: https://s-media-cache-ak0.pinimg.com/originals/56/aa/4f/56aa4f641ca51eea844d33953132cfb7.jpg
+
+Wall.png: http://4.bp.blogspot.com/-5xNMmxVjWKg/UA5bNp_0jaI/AAAAAAAAB4s/QXcwBUUPPKw/s1600/Seamless+wall+white+paint+stucco+plaster+texture.jpg
+
+NotebookDisplayContent.png: https://answers.unrealengine.com/storage/temp/82052-lores.jpg

@@ -120,6 +120,8 @@
     </None>
     <None Include="..\libs\DevIL.dll" />
     <None Include="..\libs\freeglut.dll" />
+    <None Include="..\README.md" />
+    <None Include="..\LICENSE" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Data\Bin.obj">

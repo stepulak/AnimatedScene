@@ -158,6 +158,8 @@
   <ItemGroup>
     <None Include="..\libs\DevIL.dll" />
     <None Include="..\libs\freeglut.dll" />
+    <None Include="..\LICENSE" />
+    <None Include="..\README.md" />
     <None Include="FragmentShader.glsl" />
     <None Include="VertexShader.glsl" />
   </ItemGroup>

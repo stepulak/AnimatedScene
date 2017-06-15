@@ -156,6 +156,8 @@
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\libs\DevIL.dll" />
+    <None Include="..\libs\freeglut.dll" />
     <None Include="FragmentShader.glsl" />
     <None Include="VertexShader.glsl" />
   </ItemGroup>

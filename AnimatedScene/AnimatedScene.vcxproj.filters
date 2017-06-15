@@ -118,6 +118,8 @@
     <None Include="FragmentShader.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\libs\DevIL.dll" />
+    <None Include="..\libs\freeglut.dll" />
   </ItemGroup>
   <ItemGroup>
     <Object Include="Data\Bin.obj">

@@ -69,10 +69,6 @@ namespace {
 	};
 }
 
-const float Scene::ROOM_WIDTH = 50.f;
-const float Scene::ROOM_HEIGHT = 17.f;
-const float Scene::ROOM_LENGTH = 30.f;
-
 Scene::Scene()
 {
 	ResetAll();
@@ -291,10 +287,10 @@ void Scene::UpdateLevitatingRubikCube(float deltaTime)
 
 void Scene::UpdateBouncingBall(float deltaTime)
 {
-	static const float acceleration = 9.81f;
-	static const float bounceScaleMax = 0.7f;
-	static const float bounceDistance = 0.5f;
-	static const float maxHeightOffset = 7.5f;
+	static constexpr float acceleration = 9.81f;
+	static constexpr float bounceScaleMax = 0.7f;
+	static constexpr float bounceDistance = 0.5f;
+	static constexpr float maxHeightOffset = 7.5f;
 
 	m_bouncingBallHeightOffset += deltaTime * m_bouncingBallVelocity * m_bouncingBallDirection;
 	m_bouncingBallVelocity += m_bouncingBallDirection * acceleration * deltaTime;

@@ -51,7 +51,7 @@ public:
 	Sticker(const Sticker&) = delete;
 	Sticker& operator=(const Sticker&) = delete;
 
-	inline float StickerSize() const { return 1.f; }
+	float StickerSize() const { return 1.f; }
 
 	// Draw this sticker on given position
 	void Draw(const Camera& camera,

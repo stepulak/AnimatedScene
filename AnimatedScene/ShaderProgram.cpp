@@ -20,11 +20,17 @@ ShaderProgram::~ShaderProgram()
 
 ShaderProgram::ShaderProgram(ShaderProgram&& s)
 {
+	*this = std::move(s);
+}
+
+ShaderProgram& ShaderProgram::operator=(ShaderProgram&& s)
+{
 	DestroyAll();
 	m_vertexShader = s.m_vertexShader;
 	m_fragmentShader = s.m_fragmentShader;
 	m_program = s.m_program;
 	s.ResetAll();
+	return *this;
 }
 
 void ShaderProgram::DestroyAll()
@@ -69,8 +75,8 @@ GLuint ShaderProgram::LoadShader(const std::string& shaderPath, GLenum shaderTyp
 		throw std::runtime_error("Unable to create shader using glCreateShader " + shaderPath);
 	}
 
-	std::string&& content = ss.str();
-	const char* shaderContent = content.c_str();
+	auto content = ss.str();
+	auto shaderContent = content.c_str();
 
 	glShaderSource(shader, 1, &shaderContent, nullptr);
 	glCompileShader(shader);

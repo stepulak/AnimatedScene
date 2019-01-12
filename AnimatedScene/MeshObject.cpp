@@ -16,7 +16,7 @@ MeshObject::~MeshObject()
 
 MeshObject::MeshObject(MeshObject&& uc)
 {
-	*this = std::forward<MeshObject>(uc);
+	*this = std::move(uc);
 }
 
 MeshObject& MeshObject::operator=(MeshObject&& uc)

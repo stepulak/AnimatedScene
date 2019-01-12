@@ -167,7 +167,7 @@ void UnitCube::Draw(const Camera& camera,
 	const MatrixShaderUniforms& matrixUniforms,
 	const MaterialShaderUniforms& materialUniforms) const
 {
-	auto&& pvmMatrix = camera.GetMatrix() * m_modelMatrix;
+	auto pvmMatrix = camera.GetMatrix() * m_modelMatrix;
 	
 	glUniformMatrix4fv(matrixUniforms.pvmMatrixUniform, 1, GL_FALSE, glm::value_ptr(pvmMatrix));
 	glUniformMatrix3fv(matrixUniforms.normalMatrixUniform, 1, GL_FALSE, glm::value_ptr(glm::mat3(GetNormalMatrix())));

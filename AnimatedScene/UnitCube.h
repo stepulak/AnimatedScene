@@ -40,7 +40,7 @@ public:
 	UnitCube(const UnitCube& c) = delete;
 	UnitCube& operator=(const UnitCube&) = delete;
 
-	inline float CubeSize() const { return 1.f; }
+	float CubeSize() const { return 1.f; }
 
 	void Draw(const Camera& camera,
 		const MatrixShaderUniforms& matrixUniforms,

@@ -11,10 +11,6 @@
 
 // Simple container for point and spot lights
 class LightContainer final {
-public:
-
-	const unsigned int MAX_LIGHTS = 5u;
-
 private:
 
 	std::vector<PointLight> m_pointLights;
@@ -38,7 +34,9 @@ private:
 	void SetupSpotLights(GLuint spotLightsBlockBinding, GLint numSpotLightsUniform);
 
 public:
-	
+
+	static constexpr unsigned int MAX_LIGHTS = 5u;
+
 	LightContainer(GLuint pointLightsBlockBinding, GLint numPointLightsUniform,
 		GLuint spotLightsBlockBinding, GLint numSpotLightsUniform);
 
@@ -50,8 +48,8 @@ public:
 	LightContainer(LightContainer&& lightContainer);
 	LightContainer& operator=(LightContainer&& lightContainer);
 
-	inline unsigned int GetNumberOfPointLights() const { return m_pointLights.size(); }
-	inline unsigned int GetNumberOfSpotLights() const { return m_spotLights.size(); }
+	unsigned int GetNumberOfPointLights() const { return m_pointLights.size(); }
+	unsigned int GetNumberOfSpotLights() const { return m_spotLights.size(); }
 
 	// May throw an exception if number of point lights reaches MAX_LIGHTS
 	void AddPointLight(const PointLight& light);

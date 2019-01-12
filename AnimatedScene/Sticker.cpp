@@ -62,7 +62,7 @@ Sticker::~Sticker()
 
 Sticker::Sticker(Sticker&& s)
 {
-	*this = std::forward<Sticker>(s);
+	*this = std::move(s);
 }
 
 Sticker& Sticker::operator=(Sticker&& s)
@@ -148,8 +148,8 @@ void Sticker::Draw(const Camera& camera,
 	const MatrixShaderUniforms& matrixUniforms,
 	const MaterialShaderUniforms& materialUniforms) const
 {
-	auto&& pvmMatrix = camera.GetMatrix() * modelMatrix;
-	auto&& normalMatrix = glm::mat3(glm::inverse(glm::transpose(modelMatrix)));
+	auto pvmMatrix = camera.GetMatrix() * modelMatrix;
+	auto normalMatrix = glm::mat3(glm::inverse(glm::transpose(modelMatrix)));
 
 	glUniformMatrix4fv(matrixUniforms.pvmMatrixUniform, 1, GL_FALSE, glm::value_ptr(pvmMatrix));
 	glUniformMatrix3fv(matrixUniforms.normalMatrixUniform, 1, GL_FALSE, glm::value_ptr(normalMatrix));

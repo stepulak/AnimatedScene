@@ -32,8 +32,8 @@ private:
 	typedef std::vector<Sticker::Color> StickerLine;
 	typedef std::vector<StickerLine> Face;
 
-	static const unsigned int MAX_STICKERS_PER_LINE = 15u;
-	static const float ROTATION_TIME;
+	static constexpr unsigned int MAX_STICKERS_PER_LINE = 15u;
+	static constexpr float ROTATION_TIME = 1.f;
 
 	std::array<Face, 6> m_faces;
 	std::unique_ptr<UnitCube> m_unitCube;
@@ -46,9 +46,6 @@ private:
 	unsigned int m_rotationIndex;
 	bool m_rotationClockwise;
 	float m_rotationTimer;
-	
-	// In case of using Rubik's Cube Controller
-	mutable std::mutex m_mutex;
 
 	// Reset all rotation* values to "zero", do not destroy anything
 	void ResetAll();
@@ -59,16 +56,16 @@ private:
 	void FillFaceWithColor(FaceIndex face, Sticker::Color c, unsigned int numStickersEdge);
 	
 	void RotateFace(FaceIndex face, bool clockwise);
-	void SwapStickerColors(Sticker::Color& c1, Sticker::Color& c2, Sticker::Color& c3, Sticker::Color& c4);
+	void ShiftStickerColors(Sticker::Color& c1, Sticker::Color& c2, Sticker::Color& c3, Sticker::Color& c4);
 
 	void SwapFacesXAxisRotation();
 	void SwapFacesYAxisRotation();
 	void SwapFacesZAxisRotation();
 
-	inline float GetRotationAngle() const
+	float GetRotationAngle() const
 		{ return m_rotationTimer / ROTATION_TIME * glm::half_pi<float>() * ((m_rotationClockwise) ? 1.f : -1.f); }
 
-	inline float GetStickerSize() const
+	float GetStickerSize() const
 		{ return m_unitCube->CubeSize() / (GetNumStickersPerEdge() * m_sticker->StickerSize()); }
 
 	void DrawFace(FaceIndex face,
@@ -104,7 +101,6 @@ public:
 
 	// Number of stickers per edge = Cube's level
 	RubikCube(GLint positionShaderAttribute, GLint normalShaderAttribute, unsigned int numStickersEdge = 3);
-	RubikCube(GLint positionShaderAttribute, GLint normalShaderAttribute, const std::string& filepath);
 	~RubikCube();
 
 	RubikCube(RubikCube&& r);
@@ -114,8 +110,8 @@ public:
 	RubikCube& operator=(const RubikCube&) = delete;
 
 	// Number of stickers per edge = Cube's level
-	inline unsigned int GetNumStickersPerEdge() const { return m_faces[0].size(); }
-	inline bool IsRotating() const { return m_rotationType != NONE; }
+	unsigned int GetNumStickersPerEdge() const { return m_faces[0].size(); }
+	bool IsRotating() const { return m_rotationType != NONE; }
 
 	// Set/Reset user transformation matrix
 	// Due to initial camera's design the Cube can be transformed in world space only via this way
@@ -130,9 +126,6 @@ public:
 
 	// Create new cube with given number of stickers per edge
 	void NewCube(unsigned int numStickersEdge = 3);
-
-	void LoadFromFile(const std::string& filepath);
-	void SaveIntoFile(const std::string& filepath) const;
 
 	void Draw(const Camera& camera,
 		const MatrixShaderUniforms& matrixUniforms,

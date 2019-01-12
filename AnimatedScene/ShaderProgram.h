@@ -31,20 +31,21 @@ public:
 	ShaderProgram(const ShaderProgram&) = delete;
 	ShaderProgram(ShaderProgram&& s);
 
-	const ShaderProgram& operator=(const ShaderProgram&) = delete;
+	ShaderProgram& operator=(const ShaderProgram&) = delete;
+	ShaderProgram& operator=(ShaderProgram&& s);
 
-	inline void SetActive() const { glUseProgram(m_program); }
-	inline void SetInactive() const { glUseProgram(0); }
+	void SetActive() const { glUseProgram(m_program); }
+	void SetInactive() const { glUseProgram(0); }
 
-	inline GLuint GetVertexShader() const { return m_vertexShader; }
-	inline GLuint GetFragmentShader() const { return m_fragmentShader; }
-	inline GLuint GetProgram() const { return m_program; }
+	GLuint GetVertexShader() const { return m_vertexShader; }
+	GLuint GetFragmentShader() const { return m_fragmentShader; }
+	GLuint GetProgram() const { return m_program; }
 
-	inline GLint GetUniformLocation(const std::string& name) const { return glGetUniformLocation(m_program, name.c_str()); }
-	inline GLint GetAttribLocation(const std::string& name) const { return glGetAttribLocation(m_program, name.c_str()); }
-	inline GLint GetUniformBlockIndex(const std::string& name) const { return glGetUniformBlockIndex(m_program, name.c_str()); }
+	GLint GetUniformLocation(const std::string& name) const { return glGetUniformLocation(m_program, name.c_str()); }
+	GLint GetAttribLocation(const std::string& name) const { return glGetAttribLocation(m_program, name.c_str()); }
+	GLint GetUniformBlockIndex(const std::string& name) const { return glGetUniformBlockIndex(m_program, name.c_str()); }
 
-	inline void UniformBlockBinding(GLint blockIndex, GLint blockBinding) const { glUniformBlockBinding(m_program, blockIndex, blockBinding); }
+	void UniformBlockBinding(GLint blockIndex, GLint blockBinding) const { glUniformBlockBinding(m_program, blockIndex, blockBinding); }
 };
 
 #endif

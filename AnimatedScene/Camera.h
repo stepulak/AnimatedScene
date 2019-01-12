@@ -10,10 +10,10 @@
 class Camera {
 private:
 
-	static const float ZOOM;
-	static const float ROTATION_Q;
-	static const float MAX_RADIUS;
-	static const float MIN_RADIUS;
+	static constexpr float ZOOM = 1.1f;
+	static constexpr float ROTATION_Q = 0.005f;
+	static constexpr float MAX_RADIUS = 20.f;
+	static constexpr float MIN_RADIUS = 1.f;
 
 	glm::mat4 m_projectionMatrix;
 	glm::vec3 m_eyePosition;
@@ -30,17 +30,17 @@ public:
 	Camera(float windowWidth, float windowHeight);
 	virtual ~Camera() {}
 
-	inline float GetWindowWidth() const { return m_windowWidth; }
-	inline float GetWindowHeight() const { return m_windowHeight; }
+	float GetWindowWidth() const { return m_windowWidth; }
+	float GetWindowHeight() const { return m_windowHeight; }
 
-	inline const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix; }
-	inline const glm::vec3& GetEyePosition() const { return m_eyePosition; }
-	inline glm::mat4 GetMatrix() const { return m_projectionMatrix * GetViewMatrix(); }
-	inline glm::mat4 GetViewMatrix() const { return glm::lookAt(m_eyePosition, glm::vec3(0.f), glm::vec3(0.f, 1.f, 0.f)); }
+	const glm::mat4& GetProjectionMatrix() const { return m_projectionMatrix; }
+	const glm::vec3& GetEyePosition() const { return m_eyePosition; }
+	glm::mat4 GetMatrix() const { return m_projectionMatrix * GetViewMatrix(); }
+	glm::mat4 GetViewMatrix() const { return glm::lookAt(m_eyePosition, glm::vec3(0.f), glm::vec3(0.f, 1.f, 0.f)); }
 
 	// Set your own eye position for camera
 	// Beware of using camera's transformation methods, they will reset your eye position completely
-	inline void SetEyePositionManual(const glm::vec3& eyePosition) { m_eyePosition = eyePosition; }
+	void SetEyePositionManual(const glm::vec3& eyePosition) { m_eyePosition = eyePosition; }
 
 	void Resize(float windowWidth, float windowHeight);
 	

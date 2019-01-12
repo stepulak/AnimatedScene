@@ -20,11 +20,11 @@
 class Scene final {
 private:
 	
-	static const float ROOM_WIDTH;
-	static const float ROOM_HEIGHT;
-	static const float ROOM_LENGTH;
+	static constexpr float ROOM_WIDTH = 50.f;
+	static constexpr float ROOM_HEIGHT = 17.f;
+	static constexpr float ROOM_LENGTH = 30.f;
 
-	// In-Scene objects
+	// In-Scene objects (ugly solution)
 	std::unique_ptr<RubikCube> m_rubikCube;
 	std::unique_ptr<MeshObject> m_wallMesh;
 	std::unique_ptr<MeshObject> m_binMesh;
@@ -42,7 +42,7 @@ private:
 	std::unique_ptr<MeshObject> m_lampMesh;
 	std::unique_ptr<MeshObject> m_bulbMesh;
 
-	// In-Scene textures
+	// In-Scene textures (ugly solution)
 	std::unique_ptr<Texture> m_binTexture;
 	std::unique_ptr<Texture> m_birchwoodTexture;
 	std::unique_ptr<Texture> m_doorwoodTexture;
@@ -103,7 +103,7 @@ private:
 	void UpdateLevitatingRubikCube(float deltaTime);
 	void UpdateBouncingBall(float deltaTime);
 
-	// Draw methods
+	// Draw methods (ugly solution)
 	void DrawRoom(const Camera& camera) const;
 	void DrawClock(const Camera& camera) const;
 	void DrawShelvesWithMiniTable(const Camera& camera) const;

@@ -2,22 +2,12 @@
 #include <glm/gtx/transform.hpp>
 #include <fstream>
 
-const float RubikCube::ROTATION_TIME = 1.f;
-
 RubikCube::RubikCube(GLint positionShaderAttribute, GLint normalShaderAttribute, unsigned int numStickersEdge)
 {
 	ResetAll();
 	m_unitCube = std::make_unique<UnitCube>(positionShaderAttribute, normalShaderAttribute);
 	m_sticker = std::make_unique<Sticker>(positionShaderAttribute, normalShaderAttribute);
 	NewCube(numStickersEdge);
-}
-
-RubikCube::RubikCube(GLint positionShaderAttribute, GLint normalShaderAttribute, const std::string& filepath)
-{
-	ResetAll();
-	m_unitCube = std::make_unique<UnitCube>(positionShaderAttribute, normalShaderAttribute);
-	m_sticker = std::make_unique<Sticker>(positionShaderAttribute, normalShaderAttribute);
-	LoadFromFile(filepath);
 }
 
 RubikCube::~RubikCube()
@@ -27,7 +17,7 @@ RubikCube::~RubikCube()
 
 RubikCube::RubikCube(RubikCube&& r)
 {
-	*this = std::forward<RubikCube>(r);
+	*this = std::move(r);
 }
 
 RubikCube& RubikCube::operator=(RubikCube&& r)
@@ -78,12 +68,12 @@ void RubikCube::RotateFace(FaceIndex face, bool clockwise)
 		for (unsigned int j = i; j < numStickers - i - 1; j++) {
 			auto& secondRow = clockwise ? f[numStickers - i - 1][j] : f[i][numStickers - j - 1];
 			auto& fourthRow = clockwise ? f[i][numStickers - j - 1] : f[numStickers - i - 1][j];
-			SwapStickerColors(f[j][i], secondRow, f[numStickers - j - 1][numStickers - i - 1], fourthRow);
+			ShiftStickerColors(f[j][i], secondRow, f[numStickers - j - 1][numStickers - i - 1], fourthRow);
 		}
 	}
 }
 
-void RubikCube::SwapStickerColors(Sticker::Color& c1, Sticker::Color& c2, Sticker::Color& c3, Sticker::Color& c4)
+void RubikCube::ShiftStickerColors(Sticker::Color& c1, Sticker::Color& c2, Sticker::Color& c3, Sticker::Color& c4)
 {
 	Sticker::Color tmp = c1;
 	c1 = c2;
@@ -108,7 +98,7 @@ void RubikCube::SwapFacesXAxisRotation()
 	for (auto y = 0u; y < numStickers; y++) {
 		auto& second = m_rotationClockwise ? m_faces[BACK][i][y] : m_faces[FRONT][i][y];
 		auto& fourth = m_rotationClockwise ? m_faces[FRONT][i][y] : m_faces[BACK][i][y];
-		SwapStickerColors(m_faces[TOP][i][y], second, m_faces[BOTTOM][i][y], fourth);
+		ShiftStickerColors(m_faces[TOP][i][y], second, m_faces[BOTTOM][i][y], fourth);
 	}
 }
 
@@ -131,7 +121,7 @@ void RubikCube::SwapFacesYAxisRotation()
 		auto& second = m_rotationClockwise ? left : right;
 		auto& fourth = m_rotationClockwise ? right : left;
 
-		SwapStickerColors(m_faces[FRONT][x][numStickers - i - 1], second, m_faces[BACK][numStickers - x - 1][i], fourth);
+		ShiftStickerColors(m_faces[FRONT][x][numStickers - i - 1], second, m_faces[BACK][numStickers - x - 1][i], fourth);
 	}
 }
 
@@ -151,7 +141,7 @@ void RubikCube::SwapFacesZAxisRotation()
 	for (auto x = 0u; x < numStickers; x++) {
 		auto& second = m_rotationClockwise ? m_faces[RIGHT][x][i] : m_faces[LEFT][x][i];
 		auto& fourth = m_rotationClockwise ? m_faces[LEFT][x][i] : m_faces[RIGHT][x][i];
-		SwapStickerColors(m_faces[TOP][x][i], second, m_faces[BOTTOM][numStickers - x - 1][numStickers - i - 1], fourth);
+		ShiftStickerColors(m_faces[TOP][x][i], second, m_faces[BOTTOM][numStickers - x - 1][numStickers - i - 1], fourth);
 	}
 }
 
@@ -240,7 +230,7 @@ void RubikCube::DrawCubeXAxisRotation(const Camera& camera,
 	auto numStickers = GetNumStickersPerEdge();
 	glm::vec3 rotationVec(1.f, 0.f, 0.f);
 	glm::mat4 identityMat(1.f);
-	auto&& rotationMat = glm::rotate(GetRotationAngle(), rotationVec);
+	auto rotationMat = glm::rotate(GetRotationAngle(), rotationVec);
 
 	DrawUnitCubeGenericRotation(camera, rotationVec, matrixUniforms, materialUniforms);
 
@@ -250,7 +240,7 @@ void RubikCube::DrawCubeXAxisRotation(const Camera& camera,
 	DrawFace(RIGHT, (m_rotationIndex == numStickers - 1) ? rotationMat : identityMat, 0, 0,
 		numStickers, numStickers, camera, matrixUniforms, materialUniforms);
 	
-	for (auto&& face : { TOP, BACK, FRONT, BOTTOM }) {
+	for (auto face : { TOP, BACK, FRONT, BOTTOM }) {
 		auto i = m_rotationIndex;
 		DrawFace(face, rotationMat, i, 0, i + 1, numStickers, camera, matrixUniforms, materialUniforms);
 		DrawFace(face, identityMat, 0, 0, i, numStickers, camera, matrixUniforms, materialUniforms);
@@ -265,7 +255,7 @@ void RubikCube::DrawCubeYAxisRotation(const Camera& camera,
 	auto numStickers = GetNumStickersPerEdge();
 	glm::vec3 rotationVec(0.f, 1.f, 0.f);
 	glm::mat4 identityMat(1.f);
-	auto&& rotationMat = glm::rotate(GetRotationAngle(), rotationVec);
+	auto rotationMat = glm::rotate(GetRotationAngle(), rotationVec);
 
 	DrawUnitCubeGenericRotation(camera, rotationVec, matrixUniforms, materialUniforms);
 
@@ -276,7 +266,7 @@ void RubikCube::DrawCubeYAxisRotation(const Camera& camera,
 		numStickers, numStickers, camera, matrixUniforms, materialUniforms);
 
 	// Unlike in rotation around X axis, [0, 0] points of faces aren't in straight line there
-	for (auto&& face : { FRONT, RIGHT, BACK, LEFT }) {
+	for (auto face : { FRONT, RIGHT, BACK, LEFT }) {
 		auto i = (face == FRONT || face == RIGHT) ? numStickers - m_rotationIndex - 1 : m_rotationIndex;
 
 		if (face == FRONT || face == BACK) {
@@ -299,7 +289,7 @@ void RubikCube::DrawCubeZAxisRotation(const Camera& camera,
 	auto numStickers = GetNumStickersPerEdge();
 	glm::vec3 rotationVec(0.f, 0.f, 1.f);
 	glm::mat4 identityMat(1.f);
-	auto&& rotationMat = glm::rotate(GetRotationAngle(), rotationVec);
+	auto rotationMat = glm::rotate(GetRotationAngle(), rotationVec);
 
 	DrawUnitCubeGenericRotation(camera, rotationVec, matrixUniforms, materialUniforms);
 
@@ -309,7 +299,7 @@ void RubikCube::DrawCubeZAxisRotation(const Camera& camera,
 	DrawFace(FRONT, (m_rotationIndex == numStickers - 1) ? rotationMat : identityMat, 0, 0,
 		numStickers, numStickers, camera, matrixUniforms, materialUniforms);
 
-	for (auto&& face : { TOP, RIGHT, LEFT, BOTTOM }) {
+	for (auto face : { TOP, RIGHT, LEFT, BOTTOM }) {
 		auto i = (face == BOTTOM) ? numStickers - m_rotationIndex - 1 : m_rotationIndex;
 
 		DrawFace(face, rotationMat, 0, i, numStickers, i + 1, camera, matrixUniforms, materialUniforms);
@@ -372,9 +362,6 @@ void RubikCube::NewCube(unsigned int numStickersEdge)
 	if (numStickersEdge > MAX_STICKERS_PER_LINE) {
 		throw std::runtime_error("Reached maximum number of stickers per line");
 	}
-
-	m_mutex.lock();
-
 	ResetAll();
 
 	for (auto& face : m_faces) {
@@ -387,73 +374,6 @@ void RubikCube::NewCube(unsigned int numStickersEdge)
 	FillFaceWithColor(BACK, Sticker::ORANGE, numStickersEdge);
 	FillFaceWithColor(LEFT, Sticker::GREEN, numStickersEdge);
 	FillFaceWithColor(RIGHT, Sticker::BLUE, numStickersEdge);
-
-	m_mutex.unlock();
-}
-
-void RubikCube::LoadFromFile(const std::string& filepath)
-{
-	std::fstream file(filepath, std::fstream::in);
-
-	if (!file.good()) {
-		throw std::runtime_error("Unable to open save file");
-	}
-
-	m_mutex.lock();
-
-	unsigned int numStickersPerEdge;
-	file >> numStickersPerEdge;
-	
-	ResetAll();
-	for (auto& face : m_faces) {
-		face.clear();
-	}
-	
-	unsigned int stickerColorIndex;
-
-	// Fill faces with different sticker's colors
-	for (auto&& face : m_faces) {
-		face.reserve(numStickersPerEdge);
-
-		for (auto x = 0u; x < numStickersPerEdge; x++) {
-			face.push_back(StickerLine());
-			face.back().reserve(numStickersPerEdge);
-
-			for (auto y = 0u; y < numStickersPerEdge; y++) {
-				file >> stickerColorIndex;
-				face.back().push_back(static_cast<Sticker::Color>(stickerColorIndex));
-			}
-		}
-	}
-
-	file.close();
-	m_mutex.unlock();
-}
-
-void RubikCube::SaveIntoFile(const std::string& filepath) const
-{
-	std::fstream file(filepath, std::fstream::out);
-
-	if (!file.good()) {
-		throw std::runtime_error("Unable to create file for saving");
-	}
-	
-	m_mutex.lock();
-
-	file << GetNumStickersPerEdge() << std::endl;
-	
-	for (auto&& face : m_faces) {
-		for (auto&& x : face) {
-			for (auto&& y : x) {
-				file << static_cast<unsigned int>(y) << ' ';
-			}
-			file << std::endl;
-		}
-		file << std::endl;
-	}
-	
-	file.close();
-	m_mutex.unlock();
 }
 
 bool RubikCube::Rotate(RubikCube::RotationType rotationType, unsigned int rotationIndex, bool rotationClockwise)
@@ -465,22 +385,16 @@ bool RubikCube::Rotate(RubikCube::RotationType rotationType, unsigned int rotati
 		return false;
 	}
 
-	m_mutex.lock();
-
 	m_rotationType = rotationType;
 	m_rotationIndex = rotationIndex;
 	m_rotationClockwise = rotationClockwise;
 	m_rotationTimer = 0.f;
-	
-	m_mutex.unlock();
 
 	return true;
 }
 
 void RubikCube::Update(float deltaTime)
 {
-	m_mutex.lock();
-
 	if (m_rotationType != NONE) {
 		m_rotationTimer += deltaTime;
 
@@ -497,16 +411,12 @@ void RubikCube::Update(float deltaTime)
 			m_rotationType = NONE;
 		}
 	}
-
-	m_mutex.unlock();
 }
 
 void RubikCube::Draw(const Camera& camera,
 	const MatrixShaderUniforms& matrixUniforms,
 	const MaterialShaderUniforms& materialUniforms) const
 {
-	m_mutex.lock();
-
 	switch (m_rotationType) {
 	case NONE:
 		DrawCubeNoRotation(camera, matrixUniforms, materialUniforms);
@@ -521,6 +431,4 @@ void RubikCube::Draw(const Camera& camera,
 		DrawCubeZAxisRotation(camera, matrixUniforms, materialUniforms);
 		break;
 	}
-
-	m_mutex.unlock();
 }

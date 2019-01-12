@@ -15,7 +15,7 @@ LightContainer::~LightContainer()
 
 LightContainer::LightContainer(LightContainer&& lightContainer)
 {
-	*this = std::forward<LightContainer>(lightContainer);
+	*this = std::move(lightContainer);
 }
 
 LightContainer& LightContainer::operator=(LightContainer&& lightContainer)

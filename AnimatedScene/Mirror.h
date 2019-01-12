@@ -35,10 +35,10 @@ public:
 	void SetActive() const;
 
 	// Call this to disable rendering of GL's content into mirror's framebuffer
-	inline void SetInactive() const { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
+	void SetInactive() const { glBindFramebuffer(GL_FRAMEBUFFER, 0); }
 
-	inline void BindMirrorAsTexture() const { m_colorTexture.Bind(); }
-	inline void UnbindMirrorAsTexture() const { m_colorTexture.Unbind(); }
+	void BindMirrorAsTexture() const { m_colorTexture.Bind(); }
+	void UnbindMirrorAsTexture() const { m_colorTexture.Unbind(); }
 
 	Camera GetReflectedCamera(const Camera& camera, const glm::vec3& reflection) const;
 };

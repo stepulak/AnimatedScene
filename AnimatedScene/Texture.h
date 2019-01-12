@@ -11,7 +11,7 @@ private:
 
 	GLuint m_texture;
 
-	inline void ResetAll() { m_texture = 0; }
+	void ResetAll() { m_texture = 0; }
 	void DestroyAll();
 
 public:
@@ -30,9 +30,9 @@ public:
 	Texture(const Texture&) = delete;
 	Texture& operator=(const Texture&) = delete;
 
-	inline GLuint GetTexture() const { return m_texture; }
-	inline void Bind() const { glBindTexture(GL_TEXTURE_2D, m_texture); }
-	inline void Unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
+	GLuint GetTexture() const { return m_texture; }
+	void Bind() const { glBindTexture(GL_TEXTURE_2D, m_texture); }
+	void Unbind() const { glBindTexture(GL_TEXTURE_2D, 0); }
 
 	void CreateMipmap() const;
 

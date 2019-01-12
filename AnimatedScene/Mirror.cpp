@@ -38,7 +38,7 @@ Mirror::~Mirror()
 
 Mirror::Mirror(Mirror&& mirror)
 {
-	*this = std::forward<Mirror>(mirror);
+	*this = std::move(mirror);
 }
 
 Mirror& Mirror::operator=(Mirror&& mirror)

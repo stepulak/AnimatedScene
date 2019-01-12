@@ -23,7 +23,7 @@ Texture::~Texture()
 
 Texture::Texture(Texture&& texture)
 {
-	*this = std::forward<Texture>(texture);
+	*this = std::move(texture);
 }
 
 Texture& Texture::operator=(Texture&& texture)
